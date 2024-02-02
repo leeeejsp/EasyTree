@@ -67,74 +67,79 @@ jsPhyloSVG는 Newick format 또는 phyloXML형식에서 SVG(Scalable Vector Grap
 
  
 
+<img width="614" alt="격자 없는 workflow" src="https://github.com/leeeejsp/EasyTree/assets/141730566/80a906e0-73e6-4ea8-8d4c-0b5d918c1c0d">
 
-그림 1. work flow
- 
+###### 그림 1. work flow
+<br/>
 
 앞서 언급한 재료 및 방법으로 구현한 EasyTree의 work flow를 살펴보면 다음과 같다. 클라이언트는 이 웹서비스를 이용하는 사용자의 컴퓨터를 의미하고 AWS EC2 instance는 서버컴퓨터를 의미한다. 서버컴퓨터 안에는 Web Application Server(WAS)와 MySQL이 있다. WAS는 웹서버를 의미하여 이 안에서 실제 프로그램이 수행된다. MySQL은 데이터베이스를 의미하며 이 안에 식물들의 protein 서열정보들이 담겨있다. WAS안에 MUSCLE은 MUSCLE실행프로그램이며 이것을 통해 다중시퀀스정렬을 수행한다. (그림 1)
 
 프로그램의 수행과정은 다음과 같다. 사용자가 클라이언트에서 요청을 하면 입력된 데이터와 사용자가 선택한 데이터를 기반으로 INPUT FILE이 만들어진다. INPUT FILE은 하나의 파일에 사용자가 선택한 protein 서열들과 사용자가 입력한 protein 서열들이 FASTA형식으로 있다.
 
 이후에 MUSCLE에서 다중시퀀스정렬을 수행하는 명령어가 서버에서 자동으로 실행되며 INPUT FILE을 통해 MSA가 만들어진다. MSA는 INPUT FILE의 데이터들이 다중시퀀스정렬 작업을 마친 파일이다. MSA RESULT FILE은 다중시퀀스정렬의 수행결과를 화면에 보여주는 HTML파일이다. NEWICK FORMAT은 jsPhyloSVG을 통해 계통수를 렌더링하기 위한 파일이다. 이렇게 만들어진 MSA RESULT FILE과 NEWICK FORMAT의 결과가 클라이언트에게 전송되며, 사용자는 다중시퀀스정렬결과와 NEWICK FORMAT에 기반한 계통수를 볼 수 있게 되는 것이다.
-
+<br/><br/>
  
 
 2. 사용 매뉴얼
 
+<img width="583" alt="메인화면" src="https://github.com/leeeejsp/EasyTree/assets/141730566/8adbc4ee-341d-40da-8aa1-7be745574901">
 
-그림 2. 화면구성
- 
+##### 그림 2. 화면구성
+ <br/>
 
 메인화면에서 서열정보들은 학명, NCBI코드, protein이름으로 구성되어있다. NCBI코드를 클릭하면 해당 서열정보의 출처로 이동할 수 있으며 protein이름을 클릭하면 본 웹에 저장되어있는 FASTA포맷을 볼 수 있다. 사용자는 분석하고자 하는 서열 데이터를 선택할 수 있다. 이후에 트리보기 버튼을 클릭하여 자신이 선택한 서열 데이터를 확인할 수 있다. FASTA포맷 칸에는 사용자가 원하는 서열 데이터를 가져와 FASTA포맷으로 입력하면 사용자가 선택한 데이터와 같이 분석할 수 있다. 이후에 트리방식에서 Maximum Likelihood, Neighbor-Joining, UPGMA 중 1개를 선택하여 결과보기 버튼을 누르면 사용자가 원하는 서열 데이터 간의 계통수를 볼 수 있다. (그림 2)
 
  
+<img width="365" alt="결과화면" src="https://github.com/leeeejsp/EasyTree/assets/141730566/4845d59a-3087-41af-82b6-d4bdf2abc17a">
 
-
-그림 3. 계통수 결과
- 
+##### 그림 3. 계통수 결과
+ <br/>
 
 위 화면은 계통수를 보여주는 결과화면이다. 가장 가운데에는 계통수가 그려져있으며 그 아래에는 계통수를 문자열형식으로 표현한 Newick format을 보여주고 있다. 결과화면에는 다중시퀀스정렬결과를 볼 수 있는 정렬결과버튼과 Newick format을 파일로 다운받을 수 있는 다운로드 버튼이 있다. (그림 3)
 
  
+<img width="450" alt="정렬결과화면" src="https://github.com/leeeejsp/EasyTree/assets/141730566/eb3b5bb3-2983-4267-90d9-5c828c1a32ef">
 
-
-그림 4. 정렬결과
- 
+##### 그림 4. 정렬결과
+ <br/>
 
 정렬결과를 눌렀을 때의 화면이다. 서열 데이터에는 아미노산 치환이 보존적인지 비보존적인지를 알 수 있는 BLOSUM62 점수가 반영되어있다. 연한 파란색의 경우에는 3점보다 크거나 같은 경우로 보존적 치환임을 나타낸다. 밝은 회색과 그 외에 색깔이 지정되어있지 않은 문자열은 0.2점보다 낮은 점수를 가지고 있는 문자열임을 의미한다. 즉, 비보존적 치환임을 나타낸다.(그림 4)
-
+<br/><br/>
  
 
 3. EasyTree의 작업 수행 시간
 
+![easytree작업시간 그래프(2)](https://github.com/leeeejsp/EasyTree/assets/141730566/3941085f-f2e8-4c89-9a52-20796c901b45)
 
-그림 5. 작업 수행 시간
- 
+##### 그림 5. 작업 수행 시간
+ <br/>
 
 위 그래프는 EasyTree에서 1000base pair기준으로 Maximum-Likelihood, Neighbor-Joining, UPGMA의 작업시간을 측정한 결과이다. 서열개수가 5개일때는 4초내외의 시간이 걸렸으며 서열개수가 14개가 넘어가면 30초내외의 시간이 걸린다.(그림 5) 본 application은 aws에서의 t2.micro에서 실행되고 있다. (vCPU:1, 아키텍처:i386, x86_64, 메모리(GB):1, 네트워크성능:Low to Moderate) application에서 분석할 때의 서열의 개수는 최대 15개로 제한하였으며 각 서열별 base pair는 1000개 내외로 할 것을 권장한다.
-
+<br/><br/>
  
 
 4. 다른 연구와의 비교
 
+<img width="408" alt="격자 없는 계통수 비교" src="https://github.com/leeeejsp/EasyTree/assets/141730566/c4e2c386-993c-42a5-9409-3112577d5f4e">
 
-그림 6. 이전 연구에서의 Pinus속에 대한 계통분석 연구와의 비교
- 
+##### 그림 6. 이전 연구에서의 Pinus속에 대한 계통분석 연구와의 비교
+ <br/>
 
 위의 왼쪽 그림은 EasyTree에서 엽록체에 있는 Maturase K 단백질에 대하여 계통수를 UPGMA방식으로 분석한 그림이다. 오른쪽 그림은 Ann Willyard(2007)가 동일한 12개의 수종으로 4개 핵의 silent site 대해서 계통수를 그린 결과이다.13) 먼저, Ann Willyard의 계통수 결과를 보면 크게 Pinus subgenus와 Strobus subgenus로 2개의 clade로 형성된다. Pinus subgenus에서는 2개의 clade로 형성되었다. Pinus taeda, Pinus radiata, Pinus ponserosa, Pinus contorta는 Trifoliae section으로 분류되었고, Pinus merkusii, Pinus roxburghii는 Pinus section으로 분류되었다. 또한 Strobus subgenus에서도 2개의 clade로 형성되었다. Pinus krempfii, Pinus gerardiana, Pinus monticola는 Quinquefoliae section으로 분류되었고, Pinus nelsonii, Pinus longaeva, Pinus monophylla는 Parrya section으로 분류되었다. EasyTree의 결과를 보면 마찬가지로 크게 Pinus subgenus와 Strobus subgenus로 2개의 clade로 형성된다. Pinus subgenus에서는 Pinus taeda, Pinus radiata, Pinus ponserosa, Pinus contorta를 하나의 clade로 형성하여 Trifoliae section으로 분류하였다. Strobus subgenus에서는 Pinus krempfii, Pinus gerardiana를 하나의 clade로 형성하여 Quinquefoliae section으로 분류하였다. 또한, Pinus nelsonii, Pinus longaeva, Pinus monophylla를 하나의 clade로 형성하여 Parrya section에 대해서도 구분하였다. 다른 서열 데이터를 분석하였음에도 EasyTree는 subgenus의 분류, section의 분류를 수행할 수 있는 모습을 보인다.(그림 6)
-
+<br/><br/>
  
 
 5. 상용 프로그램과의 비교
 
+<img width="503" alt="상용프로그램과의 비교" src="https://github.com/leeeejsp/EasyTree/assets/141730566/cd718ef4-0314-4dd4-a0cb-9374cfeada21">
 
-그림7. MEGA11와 EasyTree간의 계통분석 비교
- 
+##### 그림7. MEGA11와 EasyTree간의 계통분석 비교
+ <br/>
 
 EasyTree에서 사용한 데이터(Maturase K)와 동일한 데이터로 MEGA11에서 UPGMA방식으로 분석한 결과를 비교한 그림이다.(그림 7) MEGA11의 분석결과와 비교를 해보면 Pinus monticola의 분기점을 제외하고는 모든 분기점이 일치한다. 따라서, Easytree가 Pinus subgenus와 Strobus subgenus의 분류와 각 하위 section인 Trifoliae section, Quinquefoliae section, Parrya section, Pinus section의 분류를 정확하게 수행하였음을 알 수 있다.
 
 EasyTree에서의 계통수와 MEGA11에서의 계통수가 동일한 데이터를 사용하여 분석을 했음에도 불구하고 미세한 차이가 나는 이유는 정렬을 수행할 때의 파라미터값의 차이에 있다. MEGA11 자체에서 사용하고 있는 파라미터와 MUSCLE의 파라미터값이 다르기 때문에 미세한 차이가 나왔고 그 결과가 계통수에도 영향을 미친 것이다. MEGA11에서 정렬을 수행할 때의 파라미터값들은 Gap Open : -2.9, Gap Extend : 0.0, Hydrophobicity Multiplier : 1.2, Max Memory in MB : 2048, Max iterations : 16, Cluster Method (interation 1,2) : UPGMA, Cluster Method (Other iterations) : UPGMA, Min Diag Length (Lambda) : 24로 총 8가지만을 기본으로 제공하고 있으며10), MUSCLE에서 제공하고 있는 파라미터값들은 28가지를 기본으로 제공하고 있다.11) 이러한 파라미터의 차이 때문에 계통수의 차이가 있었음을 추측해 볼 수 있다. 따라서 EasyTree로 계통수를 분석할 때 파라미터의 차이에 따라 상용프로그램과의 계통수 차이가 있음을 알 수 있다.
-
+<br/><br/>
  
 
 6. EasyTree의 단점 및 보완 방향
@@ -142,7 +147,7 @@ EasyTree에서의 계통수와 MEGA11에서의 계통수가 동일한 데이터�
 EasyTree는 사용자의 분석 자유도 측면에서 미흡한 부분들이 존재한다. (1) 서버의 낮은 용량으로 NCBI에 존재하는 모든 데이터들을 저장할 수 없다. 따라서 사용자는 데이터베이스에 있는 서열 데이터 외의 데이터를 분석하고자 할 때 번거로운 점이 있다. (2) rectangular phylograms만 렌더링이 가능하므로 사용자는 동일한 종류의 계통수만 볼 수 있다. (3) 사용자가 다중시퀀스정렬을 수행할 때의 파라미터 값을 설정할 수 없으므로 일관된 정렬만을 수행할 수 있다. (4) 서버의 적은 메모리로 인한 1000base pair이상의 서열데이터 분석에 어려움이 있다. (5) 다중시퀀스정렬 method가 3개로만 구성되어 있어서 다각도의 분석이 제한되어있다. (6) 다중시퀀스정렬을 MUSCLE로만 수행할 수 있어서 사용자의 알고리즘 선택에 강제성이 부여된다.
 
 따라서 EasyTree가 가지고 있는 단점에 기반하여 보완방향을 제시해보면 다음과 같다. (1) NCBI에 있는 모든 데이터를 담을 수 있는 데이터베이스 서버를 구축해야한다. (2) circular phylograms 등 다른 방식의 계통수도 지원하는 라이브러리를 이용 또는 개발해야한다. (3) 사용자가 다중시퀀스정렬을 수행할 때의 파라미터값을 customizing 할 수 있도록 설계해야 한다. (4) 1000base pair이상의 서열데이터를 분석할 수 있기 위한 고성능 서버를 구축하고 work flow를 최적화해야 한다. (5) Minimum-Evolution 등 다른 method도 추가하여 사용자의 분석 제한을 완화한다. (6) ClustalW 등 다른 알고리즘을 선택할 수 있도록 설계하여 알고리즘 선택에 자유도를 증가시킨다. 이와 같은 개선점을 적용하면 사용자의 분석 방향의 자율성을 증대시킬 수 있으며 연구를 함에 있어서 제약이 줄어들게 된다.
-
+<br/><br/>
  
 
 #### Ⅴ. 결론
@@ -154,7 +159,7 @@ EasyTree는 사용자의 분석 자유도 측면에서 미흡한 부분들이 �
 또한, 웹 application의 구성을 한글로 만들었고, 한글로 사용법까지 자세하게 만들어서 생명정보학에 관심이 있는 사람들이 쉽게 접근할 수 있도록 하였다. 접근이 쉬워진만큼 더 많은 사람들이 생명정보학을 접할 수 있으며 이는 곧 생명정보학의 발전으로 이어질 수 있다.
 
 산림분야에서는 아직 많은 연구가 안 된 산림유전자 관련 연구에 기여할 수 있다. 즉, 산림생물정보학의 학습 및 연구의 시간이 단축될 수 있고, 단축된 시간만큼 더 많은 연구가 이루어져 산림 분야의 많은 발전을 바라볼 수 있다. 향후 산림관련 연구에서 우리나라가 앞으로 나아갈 발판이 생긴 것이다.
-
+<br/><br/>
  
 
 #### Ⅵ. 참고문헌
