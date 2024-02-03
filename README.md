@@ -1,3 +1,9 @@
+[관련링크]
+<br/>
+https://leeeejsp.tistory.com/71
+<br/>
+https://leeeejsp.tistory.com/63
+<br/><br/>
 # EasyTree : 웹 기반 식물 엽록체 유전자 계통 분석 프로그램
 
 ### EasyTree : Web-based Plant Chloroplast Gene Phylogenetic Analysis Program
